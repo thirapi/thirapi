@@ -98,7 +98,7 @@ export default async function handler(req, res) {
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/bg.gif');
+            background-image: url('https://raw.githubusercontent.com/Thirapi/Thirapi/refs/heads/main/public/bg.gif');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -258,7 +258,7 @@ export default async function handler(req, res) {
         </style>
         <div xmlns="http://www.w3.org/1999/xhtml" class="now-playing-container">
           <div class="track-info">
-              <img src="/bg.gif" alt="offline bg" class="album-art" />
+              <img src="https://raw.githubusercontent.com/Thirapi/Thirapi/refs/heads/main/public/bg.gif" alt="offline bg" class="album-art" />
             <div class="track-details">
               <div class="track-name">No track is currently playing</div>
               <div class="track-artist-album">-</div>
