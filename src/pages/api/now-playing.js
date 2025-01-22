@@ -72,9 +72,207 @@ export default async function handler(req, res) {
 
   if (!nowPlaying) {
     res.status(200).send(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="100">
-        <text x="10" y="50" font-size="16" fill="white">No track is currently playing</text>
-      </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="420" height="240">
+      <foreignObject x="10" y="10" width="420" height="240">
+        <style>
+          .now-playing-container {
+            position: relative;
+            background-color:rgba(46, 47, 52, 0.37);
+            border-radius: 10px;
+            padding: 0 15px 10px 15px;
+            width: 100%;
+            max-width: 340px;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            overflow: hidden;
+          }
+          .now-playing-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('/bg.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px); 
+            z-index: -1;
+          }
+
+          .now-playing h4 {
+            color: #a9a9a9;
+            font-size: 12px;
+            margin-bottom: 10px;
+          }
+
+          .track-info {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+            margin-top: 15px;
+          }
+
+          .album-art {
+            height: 80px;
+            width: 80px;
+            border-radius: 8px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+          }
+
+          .album-art:hover {
+            height: 80px;
+            width: 80px;
+            border-radius: 8px;
+            margin-right: 15px;
+            transform: scale(1.1);
+            filter: grayscale(80%);
+            -webkit-filter: grayscale(80%);
+          }
+
+          a {
+            text-decoration: none;
+          }
+
+          .track-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .track-details .track-name {
+            margin: 0 0 5px 0;
+            color: #fff;
+            font-size: 16px;  
+            font-weight: 900;
+            transition: background-color 0.5s ease, color 0.3s ease;
+          }
+
+          .track-details .track-name:hover {
+            margin: 0 0 5px 0;
+            background-color:rgba(0, 0, 0, 0.25);
+            color: #fff;
+            font-size: 16px;  
+            font-weight: 900;
+          }
+
+          .track-details .track-artist-album {
+            margin: 5px 0;
+            font-size: 14px;
+            color:rgb(201, 201, 201);
+            transition: background-color 0.5s ease, color 0.3s ease;
+          }
+
+          .track-details .track-artist-album:hover {
+            margin: 5px 0;
+            background-color:rgba(0, 0, 0, 0.25);
+            font-size: 14px;
+            color:rgb(201, 201, 201);
+          }
+
+          .time-progress-container {
+            width: 100%;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 3px;
+          }
+
+          .progress-bar {
+            height: 100%;
+            display: inline-block;
+            position: relative;
+          }
+
+          .time-progress-container .progress-bar>div {
+            position: relative;
+            height: 100%;
+            width: 5px;
+            background-color: #540D6E;
+            display: inline-block;
+            animation: wave 3s infinite ease-in-out;
+            -webkit-animation: wave 3s infinite ease-in-out;
+          }
+
+          .time-progress-container .progress-bar .bar2 {
+            animation-delay: 0.2s;
+            -webkit-animation-delay: 0.2s;
+          }
+
+          .time-progress-container .progress-bar .bar3 {
+            animation-delay: 0.2s;
+            -webkit-animation-delay: 0.2s;
+          }
+
+         .time-progress-container .progress-bar .bar4 {
+            animation-delay: 0.3s;
+            -webkit-animation-delay: 0.3s;
+          }
+
+         .time-progress-container .progress-bar .bar5 {
+            animation-delay: 0.4s;
+            -webkit-animation-delay: 0.4s;
+          }
+
+         .time-progress-container .progress-bar .bar6 {
+            animation-delay: 0.5s;
+            -webkit-animation-delay: 0.5s;
+          }
+
+          @keyframes wave {
+          0%,
+          100% {
+            transform: scaleY(1);
+            background-color:#383838;
+          }
+          16.67% {
+            transform: scaleY(3);
+            background-color: #383838;
+          }
+          33.33% {
+            transform: scaleY(1);
+            background-color:rgb(112, 112, 112);
+          }
+          50% {
+            transform: scaleY(3);
+            background-color:rgb(161, 161, 161);
+          }
+          66.67% {
+            transform: scaleY(1);
+            background-color:hsl(0, 0.00%, 23.10%);
+          }
+          83.34% {
+            transform: scaleY(3);
+            background-color:rgb(0, 0, 0);
+          }
+          
+        </style>
+        <div xmlns="http://www.w3.org/1999/xhtml" class="now-playing-container">
+          <div class="track-info">
+              <img src="/bg.gif" alt="offline bg" class="album-art" />
+            <div class="track-details">
+              <div class="track-name">No track is currently playing</div>
+              <div class="track-artist-album">-</div>
+              <div class="track-artist-album">-</div>
+            </div>
+          </div>
+          <div class="time-progress-container">
+            <div class="progress-bar">
+              ${Array.from({ length: 39 }, (_, i) => `<div class='bar${Math.floor(Math.random() * 6) + 1}'></div>`).join(' ')}
+            </div>
+          </div>
+        </div>
+      </foreignObject>
+    </svg>
     `);
     return;
   }
@@ -148,6 +346,8 @@ export default async function handler(req, res) {
             border-radius: 8px;
             margin-right: 15px;
             transition: transform 0.3s ease;
+            filter: grayscale(80%);
+            -webkit-filter: grayscale(80%);
           }
 
           .album-art:hover {
@@ -156,6 +356,8 @@ export default async function handler(req, res) {
             border-radius: 8px;
             margin-right: 15px;
             transform: scale(1.1);
+            filter: grayscale(0);
+            -webkit-filter: grayscale(0);
           }
 
           a {
@@ -200,144 +402,80 @@ export default async function handler(req, res) {
 
           .time-progress-container {
             width: 100%;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 3px;
           }
 
           .progress-bar {
-            width: 100%;
-            height: 4px;
-            // background-color: #40444b;
-            border-radius: 2px;
-            margin-top: 4px;
-            margin-bottom: 10px;
+            height: 100%;
+            display: inline-block;
             position: relative;
           }
 
-          .progress {
+          .time-progress-container .progress-bar>div {
+            position: relative;
             height: 100%;
-            background-color: #1db954;
-            border-radius: 2px;
-            transition: width 0.5s;
+            width: 5px;
+            background-color: #540D6E;
+            display: inline-block;
+            animation: wave 3s infinite ease-in-out;
+            -webkit-animation: wave 3s infinite ease-in-out;
           }
 
-          .time-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #b3b3b3;
-            margin-top: 5px;
+          .time-progress-container .progress-bar .bar2 {
+            animation-delay: 0.2s;
+            -webkit-animation-delay: 0.2s;
           }
 
-          #bars {
-            width: 40px;
-            height: 30px;
-            bottom: 23px;
-            position: absolute;
-            margin: 20px 0 0 0px;
+          .time-progress-container .progress-bar .bar3 {
+            animation-delay: 0.2s;
+            -webkit-animation-delay: 0.2s;
           }
 
-          .bar {
-              width: 3px;                    
-              height: 3px;                    
-              position: absolute;             
-              background: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-              animation: sound 0ms -800ms linear infinite alternate;  
+         .time-progress-container .progress-bar .bar4 {
+            animation-delay: 0.3s;
+            -webkit-animation-delay: 0.3s;
           }
 
-          @keyframes sound {
-              0% {
-                  height: 3px;
-                  opacity: .35;
-              }
-              100% {
-                  height: 15px;
-                  opacity: 0.95;
-              }
+         .time-progress-container .progress-bar .bar5 {
+            animation-delay: 0.4s;
+            -webkit-animation-delay: 0.4s;
           }
 
-          .bar:nth-child(1)  { left: 1px; animation-duration: 1320ms; }
-          .bar:nth-child(2)  { left: 5px; animation-duration: 1213ms; }
-          .bar:nth-child(3)  { left: 9px; animation-duration: 1336ms; }
-          .bar:nth-child(4)  { left: 13px; animation-duration: 1122ms; }
-          .bar:nth-child(5)  { left: 17px; animation-duration: 1100ms; }
-          .bar:nth-child(6)  { left: 21px; animation-duration: 1016ms; }
-          .bar:nth-child(7)  { left: 25px; animation-duration: 1247ms; }
-          .bar:nth-child(8)  { left: 29px; animation-duration: 1214ms; }
-          .bar:nth-child(9)  { left: 33px; animation-duration: 1221ms; }
-          .bar:nth-child(10) { left: 37px; animation-duration: 1036ms; }
-          .bar:nth-child(11) { left: 41px; animation-duration: 1129ms; }
-          .bar:nth-child(12) { left: 45px; animation-duration: 1029ms; }
-            .bar:nth-child(13) { left: 49px; animation-duration: 1340ms; }
-            .bar:nth-child(14) { left: 53px; animation-duration: 1130ms; }
-            .bar:nth-child(15) { left: 57px; animation-duration: 1040ms; }
-            .bar:nth-child(16) { left: 61px; animation-duration: 1220ms; }
-            .bar:nth-child(17) { left: 65px; animation-duration: 1330ms; }
-            .bar:nth-child(18) { left: 69px; animation-duration: 1110ms; }
-            .bar:nth-child(19) { left: 73px; animation-duration: 1010ms; }
-            .bar:nth-child(20) { left: 77px; animation-duration: 1240ms; }
-            .bar:nth-child(21) { left: 81px; animation-duration: 1210ms; }
-            .bar:nth-child(22) { left: 85px; animation-duration: 1230ms; }
-            .bar:nth-child(23) { left: 89px; animation-duration: 1030ms; }
-            .bar:nth-child(24) { left: 93px; animation-duration: 1130ms; }
-            .bar:nth-child(25) { left: 97px; animation-duration: 1020ms; }
-            .bar:nth-child(26) { left: 101px; animation-duration: 1340ms; }
-            .bar:nth-child(27) { left: 105px; animation-duration: 1140ms; }
-            .bar:nth-child(28) { left: 109px; animation-duration: 1040ms; }
-            .bar:nth-child(29) { left: 113px; animation-duration: 1220ms; }
-            .bar:nth-child(30) { left: 117px; animation-duration: 1330ms; }
-            .bar:nth-child(31) { left: 121px; animation-duration: 1110ms; }
-            .bar:nth-child(32) { left: 125px; animation-duration: 1010ms; }
-            .bar:nth-child(33) { left: 129px; animation-duration: 1240ms; }
-            .bar:nth-child(34) { left: 133px; animation-duration: 1210ms; }
-            .bar:nth-child(35) { left: 137px; animation-duration: 1230ms; }
-            .bar:nth-child(36) { left: 141px; animation-duration: 1030ms; }
-            .bar:nth-child(37) { left: 145px; animation-duration: 1130ms; }
-            .bar:nth-child(38) { left: 149px; animation-duration: 1020ms; }
-            .bar:nth-child(39) { left: 153px; animation-duration: 1340ms; }
-            .bar:nth-child(40) { left: 157px; animation-duration: 1140ms; }
-            .bar:nth-child(41) { left: 161px; animation-duration: 1040ms; }
-            .bar:nth-child(42) { left: 165px; animation-duration: 1220ms; }
-            .bar:nth-child(43) { left: 169px; animation-duration: 1330ms; }
-            .bar:nth-child(44) { left: 173px; animation-duration: 1110ms; }
-            .bar:nth-child(45) { left: 177px; animation-duration: 1010ms; }
-            .bar:nth-child(46) { left: 181px; animation-duration: 1240ms; }
-            .bar:nth-child(47) { left: 185px; animation-duration: 1210ms; }
-            .bar:nth-child(48) { left: 189px; animation-duration: 1230ms; }
-            .bar:nth-child(49) { left: 193px; animation-duration: 1030ms; }
-            .bar:nth-child(50) { left: 197px; animation-duration: 1130ms; }
-            .bar:nth-child(51) { left: 201px; animation-duration: 1020ms; }
-            .bar:nth-child(52) { left: 205px; animation-duration: 1340ms; }
-            .bar:nth-child(53) { left: 209px; animation-duration: 1140ms; }
-            .bar:nth-child(54) { left: 213px; animation-duration: 1040ms; }
-            .bar:nth-child(55) { left: 217px; animation-duration: 1220ms; }
-            .bar:nth-child(56) { left: 221px; animation-duration: 1330ms; }
-            .bar:nth-child(57) { left: 225px; animation-duration: 1110ms; }
-            .bar:nth-child(58) { left: 229px; animation-duration: 1010ms; }
-            .bar:nth-child(59) { left: 233px; animation-duration: 1240ms; }
-            .bar:nth-child(60) { left: 237px; animation-duration: 1210ms; }
-            .bar:nth-child(61) { left: 241px; animation-duration: 1230ms; }
-            .bar:nth-child(62) { left: 245px; animation-duration: 1030ms; }
-            .bar:nth-child(63) { left: 249px; animation-duration: 1130ms; }
-            .bar:nth-child(64) { left: 253px; animation-duration: 1020ms; }
-            .bar:nth-child(65) { left: 257px; animation-duration: 1340ms; }
-            .bar:nth-child(66) { left: 261px; animation-duration: 1140ms; }
-            .bar:nth-child(67) { left: 265px; animation-duration: 1040ms; }
-            .bar:nth-child(68) { left: 269px; animation-duration: 1220ms; }
-            .bar:nth-child(69) { left: 273px; animation-duration: 1330ms; }
-            .bar:nth-child(70) { left: 277px; animation-duration: 1110ms; }
-            .bar:nth-child(71) { left: 281px; animation-duration: 1010ms; }
-            .bar:nth-child(72) { left: 285px; animation-duration: 1240ms; }
-            .bar:nth-child(73) { left: 289px; animation-duration: 1210ms; }
-            .bar:nth-child(74) { left: 293px; animation-duration: 1230ms; }
-            .bar:nth-child(75) { left: 297px; animation-duration: 1030ms; }
-            .bar:nth-child(76) { left: 301px; animation-duration: 1130ms; }
-            .bar:nth-child(77) { left: 305px; animation-duration: 1020ms; }
-            .bar:nth-child(78) { left: 309px; animation-duration: 1340ms; }
-            .bar:nth-child(79) { left: 313px; animation-duration: 1140ms; }
-            .bar:nth-child(80) { left: 317px; animation-duration: 1040ms; }
-            .bar:nth-child(81) { left: 321px; animation-duration: 1220ms; }
-            .bar:nth-child(82) { left: 325px; animation-duration: 1330ms; }
-            .bar:nth-child(83) { left: 329px; animation-duration: 1110ms; }
-            .bar:nth-child(84) { left: 333px; animation-duration: 1010ms; }
+         .time-progress-container .progress-bar .bar6 {
+            animation-delay: 0.5s;
+            -webkit-animation-delay: 0.5s;
+          }
+
+          @keyframes wave {
+          0%,
+          100% {
+            transform: scaleY(1);
+            background-color:#7DDF64;
+          }
+          16.67% {
+            transform: scaleY(3);
+            background-color:#B0228C;
+          }
+          33.33% {
+            transform: scaleY(1);
+            background-color:#FF514F;
+          }
+          50% {
+            transform: scaleY(3);
+            background-color: #FF8C42;
+          }
+          66.67% {
+            transform: scaleY(1);
+            background-color: #008DD5;
+          }
+          83.34% {
+            transform: scaleY(3);
+            background-color:#008DD5;
+          }
+            
         </style>
         <div xmlns="http://www.w3.org/1999/xhtml" class="now-playing-container">
           <div class="track-info">
@@ -358,90 +496,7 @@ export default async function handler(req, res) {
           </div>
           <div class="time-progress-container">
             <div class="progress-bar">
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
-              <div class='bar'></div>
+              ${Array.from({ length: 39 }, (_, i) => `<div class='bar${Math.floor(Math.random() * 6) + 1}'></div>`).join(' ')}
             </div>
           </div>
         </div>
