@@ -67,217 +67,32 @@ export default async function handler(req, res) {
   }
 
   const nowPlaying = await fetchNowPlaying();
-
   res.setHeader('Content-Type', 'image/svg+xml');
 
-  if (!nowPlaying) {
-    res.status(200).send(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="420" height="240">
-      <foreignObject x="10" y="10" width="420" height="240">
-        <style>
-          .now-playing-container {
-            position: relative;
-            background-color:rgba(46, 47, 52, 0.37);
-            border-radius: 10px;
-            padding: 0 15px 10px 15px;
-            width: 100%;
-            max-width: 340px;
-            font-family: Arial, sans-serif;
-            color: white;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            margin: 0 auto;
-            margin-bottom: 10px;
-            overflow: hidden;
+  const track = nowPlaying ? nowPlaying.track : 
+  { name: "No track is currently playing", 
+    external_urls: { spotify: "external url" },
+    artists: [
+      { 
+        name: "hello world",
+        external_urls:
+          { 
+            spotify: "url-artist" 
           }
-          .now-playing-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://raw.githubusercontent.com/Thirapi/Thirapi/refs/heads/main/public/bg.gif');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            filter: blur(10px); 
-            z-index: -1;
+      }],
+    album: 
+      { 
+        name: "-",
+        external_urls: {
+          spotify: '/url-album'
+        },
+        images: [
+          { 
+            url: "https://raw.githubusercontent.com/Thirapi/Thirapi/refs/heads/main/public/bg.gif" 
           }
-
-          .now-playing h4 {
-            color: #a9a9a9;
-            font-size: 12px;
-            margin-bottom: 10px;
-          }
-
-          .track-info {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 10px;
-            margin-top: 15px;
-          }
-
-          .album-art {
-            height: 80px;
-            width: 80px;
-            border-radius: 8px;
-            margin-right: 15px;
-            transition: transform 0.3s ease;
-            filter: grayscale(100%);
-            -webkit-filter: grayscale(100%);
-          }
-
-          .album-art:hover {
-            height: 80px;
-            width: 80px;
-            border-radius: 8px;
-            margin-right: 15px;
-            transform: scale(1.1);
-            filter: grayscale(80%);
-            -webkit-filter: grayscale(80%);
-          }
-
-          a {
-            text-decoration: none;
-          }
-
-          .track-details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
-          .track-details .track-name {
-            margin: 0 0 5px 0;
-            color: #fff;
-            font-size: 16px;  
-            font-weight: 900;
-            transition: background-color 0.5s ease, color 0.3s ease;
-          }
-
-          .track-details .track-name:hover {
-            margin: 0 0 5px 0;
-            background-color:rgba(0, 0, 0, 0.25);
-            color: #fff;
-            font-size: 16px;  
-            font-weight: 900;
-          }
-
-          .track-details .track-artist-album {
-            margin: 5px 0;
-            font-size: 14px;
-            color:rgb(201, 201, 201);
-            transition: background-color 0.5s ease, color 0.3s ease;
-          }
-
-          .track-details .track-artist-album:hover {
-            margin: 5px 0;
-            background-color:rgba(0, 0, 0, 0.25);
-            font-size: 14px;
-            color:rgb(201, 201, 201);
-          }
-
-          .time-progress-container {
-            width: 100%;
-            height: 10px;
-            position: absolute;
-            bottom: 0;
-            left: 3px;
-          }
-
-          .progress-bar {
-            height: 100%;
-            display: inline-block;
-            position: relative;
-          }
-
-          .time-progress-container .progress-bar>div {
-            position: relative;
-            height: 100%;
-            width: 5px;
-            background-color: #540D6E;
-            display: inline-block;
-            animation: wave 3s infinite ease-in-out;
-            -webkit-animation: wave 3s infinite ease-in-out;
-          }
-
-          .time-progress-container .progress-bar .bar2 {
-            animation-delay: 0.2s;
-            -webkit-animation-delay: 0.2s;
-          }
-
-          .time-progress-container .progress-bar .bar3 {
-            animation-delay: 0.2s;
-            -webkit-animation-delay: 0.2s;
-          }
-
-         .time-progress-container .progress-bar .bar4 {
-            animation-delay: 0.3s;
-            -webkit-animation-delay: 0.3s;
-          }
-
-         .time-progress-container .progress-bar .bar5 {
-            animation-delay: 0.4s;
-            -webkit-animation-delay: 0.4s;
-          }
-
-         .time-progress-container .progress-bar .bar6 {
-            animation-delay: 0.5s;
-            -webkit-animation-delay: 0.5s;
-          }
-
-          @keyframes wave {
-          0%,
-          100% {
-            transform: scaleY(1);
-            background-color:#383838;
-          }
-          16.67% {
-            transform: scaleY(3);
-            background-color: #383838;
-          }
-          33.33% {
-            transform: scaleY(1);
-            background-color:rgb(112, 112, 112);
-          }
-          50% {
-            transform: scaleY(3);
-            background-color:rgb(161, 161, 161);
-          }
-          66.67% {
-            transform: scaleY(1);
-            background-color:hsl(0, 0.00%, 23.10%);
-          }
-          83.34% {
-            transform: scaleY(3);
-            background-color:rgb(0, 0, 0);
-          }
-          
-        </style>
-        <div xmlns="http://www.w3.org/1999/xhtml" class="now-playing-container">
-          <div class="track-info">
-              <img src="https://raw.githubusercontent.com/Thirapi/Thirapi/refs/heads/main/public/bg.gif" alt="offline bg" class="album-art" />
-            <div class="track-details">
-              <div class="track-name">No track is currently playing</div>
-              <div class="track-artist-album">-</div>
-              <div class="track-artist-album">-</div>
-            </div>
-          </div>
-          <div class="time-progress-container">
-            <div class="progress-bar">
-              ${Array.from({ length: 39 }, (_, i) => `<div class='bar${Math.floor(Math.random() * 6) + 1}'></div>`).join(' ')}
-            </div>
-          </div>
-        </div>
-      </foreignObject>
-    </svg>
-    `);
-    return;
-  }
-
-  const track = nowPlaying.track;
+        ] 
+      }, 
+    };
 
   const imageUrl = track.album.images[0].url;
 
@@ -346,8 +161,6 @@ export default async function handler(req, res) {
             border-radius: 8px;
             margin-right: 15px;
             transition: transform 0.3s ease;
-            filter: grayscale(80%);
-            -webkit-filter: grayscale(80%);
           }
 
           .album-art:hover {
@@ -356,8 +169,6 @@ export default async function handler(req, res) {
             border-radius: 8px;
             margin-right: 15px;
             transform: scale(1.1);
-            filter: grayscale(0);
-            -webkit-filter: grayscale(0);
           }
 
           a {
@@ -506,3 +317,5 @@ export default async function handler(req, res) {
 
   res.status(200).send(svgContent);
 }
+
+
