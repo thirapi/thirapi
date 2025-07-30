@@ -1,4 +1,4 @@
-***[@faiqthirapi](https://x.com/faiqthirapi) - He/Him - 19 y/o***
+***[@faiqthirapi](https://x.com/faiqthirapi) - 19 y/o***
 
 
 ##
