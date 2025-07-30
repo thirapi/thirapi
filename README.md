@@ -1,4 +1,3 @@
-# README.md
 ***[@faiqthirapi](https://x.com/faiqthirapi) - He/Him - 19 y/o***
 
 
