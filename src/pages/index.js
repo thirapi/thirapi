@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import { BsSpotify } from "react-icons/bs";
-import { SpotifyProvider } from "@/components/SpotifyProvider";
 import NowPlaying from "@/components/NowPlaying";
+import ViewSwitcher from "@/components/ViewSwitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,9 +17,8 @@ export default function Home() {
     <div
       className="bg-gradient-to-br from-gray-900 to-gray-800 text-white min-h-screen flex items-center justify-center"
     >
-      <SpotifyProvider>
-        <NowPlaying icon={<BsSpotify />} />
-      </SpotifyProvider>
+      <ViewSwitcher />
+      <NowPlaying />
     </div>
   );
 }
