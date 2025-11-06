@@ -1,38 +1,17 @@
-import { getNowPlaying } from '@/lib/spotify';
+export default function handler(req, res) {
+  const variants = ['card', 'dvd'];
+  const randomVariant = variants[Math.floor(Math.random() * variants.length)];
 
-export default async function handler(req, res) {
-  const response = await getNowPlaying();
+  // Dapatkan host dari header, atau gunakan fallback jika tidak tersedia
+  const host = req.headers.host || 'thirapi-three.vercel.app';
+  // Tentukan protokol berdasarkan lingkungan
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
 
-  if (response.status >= 500) {
-    const errorBody = await response.json();
-    return res.status(500).json({ error: errorBody.error || 'Internal Server Error' });
-  }
+  const redirectUrl = `${protocol}://${host}/api/now-playing/${randomVariant}`;
 
-  if (response.status === 204 || response.status > 400) {
-    return res.status(200).json({ isPlaying: false });
-  }
-
-  const song = await response.json();
-
-  if (song.item === null) {
-    return res.status(200).json({ isPlaying: false });
-  }
-
-  const data = {
-    isPlaying: song.is_playing,
-    title: song.item.name,
-    artist: song.item.artists.map((_artist) => _artist.name).join(', '),
-    album: song.item.album.name,
-    albumImageUrl: song.item.album.images[0].url,
-    songUrl: song.item.external_urls.spotify,
-    progress: song.progress_ms,
-    duration: song.item.duration_ms,
-  };
-
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=60, stale-while-revalidate=30'
-  );
-
-  return res.status(200).json(data);
+  // Set header agar redirect tidak di-cache
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  
+  // Lakukan temporary redirect
+  res.redirect(307, redirectUrl);
 }
