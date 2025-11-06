@@ -10,4 +10,3 @@
   <img height="100%" src="https://https://thirapi-now-playing.vercel.app/api/now-playing">
   <!-- [@faiqthirapi](https://x.com/faiqthirapi) - 19 y/o -->
 </div>
-okay
