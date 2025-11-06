@@ -1,5 +1,5 @@
 export default function handler(req, res) {
-  const variants = ['card', 'dvd'];
+  const variants = ['default', 'disc'];
   const randomVariant = variants[Math.floor(Math.random() * variants.length)];
 
   // Dapatkan host dari header, atau gunakan fallback jika tidak tersedia

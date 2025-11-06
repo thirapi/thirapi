@@ -14,7 +14,7 @@ This is the recommended endpoint for general use. It randomly serves one of the 
 
 - **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing`
 - **Method:** `GET`
-- **Description:** Redirects to either the `/api/now-playing/card` or `/api/now-playing/dvd` endpoint. The redirect is temporary (307) and is not cached, ensuring a random result on each request.
+- **Description:** Redirects to either the `/api/now-playing/default` or `/api/now-playing/disc` endpoint. The redirect is temporary (307) and is not cached, ensuring a random result on each request.
 - **Usage Example (Markdown):**
   ```markdown
   ![Now Playing](https://thirapi-now-playing.vercel.app/api/now-playing)
@@ -22,39 +22,39 @@ This is the recommended endpoint for general use. It randomly serves one of the 
 
 ---
 
-### 2. Card SVG (`/api/now-playing/card`)
+### 2. Card SVG (`/api/now-playing/default`)
 
 This endpoint consistently returns the standard "Now Playing" card, which displays the album art, track title, artist, and album name in a clean, compact layout.
 
-- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/card`
+- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/default`
 - **Method:** `GET`
 - **Description:** Generates and returns an SVG image of the card-style "Now Playing" status.
 - **Usage Example (Markdown):**
   ```markdown
-  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/card)
+  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/default)
   ```
 - **Preview:**
-  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/card)
+  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/default)
 
 ---
 
-### 3. DVD SVG (`/api/now-playing/dvd`)
+### 3. DVD SVG (`/api/now-playing/disc`)
 
 This endpoint returns a creative, vinyl/DVD-inspired SVG. It features the album art as a spinning disc, providing a visually engaging animation.
 
-- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/dvd`
+- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/disc`
 - **Method:** `GET`
 - **Description:** Generates and returns an SVG image of the DVD-style "Now Playing" status with a spinning animation.
 - **Usage Example (Markdown):**
   ```markdown
-  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
+  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/disc)
   ```
 - **Preview:**
-  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
+  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/disc)
 
 ---
 
 ### Caching
 
 - The `/api/now-playing` endpoint has caching disabled to ensure it can perform a random redirect on every request.
-- The `/api/now-playing/card` and `/api/now-playing/dvd` endpoints have a short cache lifetime (`s-maxage=60`) to reduce server load while still providing near real-time updates.
+- The `/api/now-playing/default` and `/api/now-playing/disc` endpoints have a short cache lifetime (`s-maxage=60`) to reduce server load while still providing near real-time updates.
