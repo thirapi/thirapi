@@ -85,7 +85,7 @@ const generateSvg = async (data) => {
     `;
 
     return `
-        <svg width="450" height="210" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="400" height="185" fill="none" xmlns="http://www.w3.org/2000/svg">
             <foreignObject width="400" height="185" style="overflow: visible;">
                 <div xmlns="http://www.w3.org/1999/xhtml" style="${mainContainerStyle}">
                     ${mainContent}
