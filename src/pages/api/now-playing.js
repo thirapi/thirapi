@@ -13,5 +13,5 @@ export default function handler(req, res) {
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   
   // Lakukan temporary redirect
-  res.redirect(302, redirectUrl);
+  res.redirect(307, redirectUrl);
 }
