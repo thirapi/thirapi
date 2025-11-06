@@ -19,7 +19,7 @@ export default function ViewSwitcher() {
         <Link 
           href="/now-playing-dvd"
           className={`${baseClasses} ${router.pathname === '/now-playing-dvd' ? activeClasses : inactiveClasses}`}>
-            DVD
+            Disc
         </Link>
       </div>
     </div>
