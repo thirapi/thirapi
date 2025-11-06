@@ -7,6 +7,6 @@
   </a>
 
 
-  <img height="100%" src="https://thirapi-now-playing.vercel.app/api/now-playing/dvd">
+  <img height="100%" src="https://thirapi-now-playing.vercel.app/api/now-playing/card">
   <!-- [@faiqthirapi](https://x.com/faiqthirapi) - 19 y/o -->
 </div>
