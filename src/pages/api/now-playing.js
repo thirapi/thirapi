@@ -3,7 +3,7 @@ export default function handler(req, res) {
   const randomVariant = variants[Math.floor(Math.random() * variants.length)];
 
   // Dapatkan host dari header, atau gunakan fallback jika tidak tersedia
-  const host = req.headers.host || 'thirapi-three.vercel.app';
+  const host = req.headers.host || 'https://thirapi-now-playing.vercel.app/';
   // Tentukan protokol berdasarkan lingkungan
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
 

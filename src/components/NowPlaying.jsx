@@ -19,7 +19,7 @@ const NowPlaying = () => {
   const fetchNowPlaying = async () => {
     setError(null)
     try {
-      const response = await axios.get("/api/now-playing")
+      const response = await axios.get("/api/get-playing")
       setData(response.data)
       if (response.data?.isPlaying) {
         setProgress(response.data.progress)
