@@ -12,12 +12,12 @@ You can use these endpoints to embed a dynamic "Now Playing" card in your own Gi
 
 This is the recommended endpoint for general use. It randomly serves one of the available SVG variants (`card` or `dvd`), providing a dynamic experience each time it's loaded.
 
-- **URL:** `https://https://thirapi-now-playing.vercel.app/api/now-playing`
+- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing`
 - **Method:** `GET`
 - **Description:** Redirects to either the `/api/now-playing/card` or `/api/now-playing/dvd` endpoint. The redirect is temporary (307) and is not cached, ensuring a random result on each request.
 - **Usage Example (Markdown):**
   ```markdown
-  ![Now Playing](https://https://thirapi-now-playing.vercel.app/api/now-playing)
+  ![Now Playing](https://thirapi-now-playing.vercel.app/api/now-playing)
   ```
 
 ---
@@ -26,15 +26,15 @@ This is the recommended endpoint for general use. It randomly serves one of the 
 
 This endpoint consistently returns the standard "Now Playing" card, which displays the album art, track title, artist, and album name in a clean, compact layout.
 
-- **URL:** `https://https://thirapi-now-playing.vercel.app/api/now-playing/card`
+- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/card`
 - **Method:** `GET`
 - **Description:** Generates and returns an SVG image of the card-style "Now Playing" status.
 - **Usage Example (Markdown):**
   ```markdown
-  ![Now Playing Card](https://https://thirapi-now-playing.vercel.app/api/now-playing/card)
+  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/card)
   ```
 - **Preview:**
-  ![Now Playing Card](https://https://thirapi-now-playing.vercel.app/api/now-playing/card)
+  ![Now Playing Card](https://thirapi-now-playing.vercel.app/api/now-playing/card)
 
 ---
 
@@ -42,15 +42,15 @@ This endpoint consistently returns the standard "Now Playing" card, which displa
 
 This endpoint returns a creative, vinyl/DVD-inspired SVG. It features the album art as a spinning disc, providing a visually engaging animation.
 
-- **URL:** `https://https://thirapi-now-playing.vercel.app/api/now-playing/dvd`
+- **URL:** `https://thirapi-now-playing.vercel.app/api/now-playing/dvd`
 - **Method:** `GET`
 - **Description:** Generates and returns an SVG image of the DVD-style "Now Playing" status with a spinning animation.
 - **Usage Example (Markdown):**
   ```markdown
-  ![Now Playing DVD](https://https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
+  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
   ```
 - **Preview:**
-  ![Now Playing DVD](https://https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
+  ![Now Playing DVD](https://thirapi-now-playing.vercel.app/api/now-playing/dvd)
 
 ---
 
