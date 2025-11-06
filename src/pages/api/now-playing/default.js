@@ -21,7 +21,7 @@ const escapeXml = (unsafe) => {
             case '<': return '&lt;';
             case '>': return '&gt;';
             case '&': return '&amp;';
-            case "\'": return '&apos;';
+            case "'": return '&apos;';
             case '"': return '&quot;';
         }
     });
@@ -103,7 +103,7 @@ export default async function handler(req, res) {
   } catch (e) {
     const svg = await generateSvg({ isPlaying: false, error: 'Could not connect to Spotify API.' });
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
     return res.status(500).send(svg);
   }
   
@@ -111,14 +111,14 @@ export default async function handler(req, res) {
     const errorBody = await response.json();
     const svg = await generateSvg({ isPlaying: false, error: errorBody.error || 'Internal Server Error' });
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
     return res.status(200).send(svg);
   }
 
   if (response.status === 204 || response.status > 400) {
     const svg = await generateSvg({ isPlaying: false });
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
     return res.status(200).send(svg);
   }
 
@@ -127,7 +127,7 @@ export default async function handler(req, res) {
   if (song.item === null || !song.is_playing) {
     const svg = await generateSvg({ isPlaying: false });
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
     return res.status(200).send(svg);
   }
 
@@ -140,6 +140,6 @@ export default async function handler(req, res) {
   });
 
   res.setHeader('Content-Type', 'image/svg+xml');
-  res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+  res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
   res.status(200).send(svg);
 }
