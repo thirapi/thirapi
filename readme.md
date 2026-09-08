@@ -1,5 +1,5 @@
-### Faiq Thirafi
+### Hello there, I'm Faiq Thirafi (rafi) 👋
 <sup>
 
-Junior Software Engineer
+I'm a Junior Software Engineer
 </sup>
